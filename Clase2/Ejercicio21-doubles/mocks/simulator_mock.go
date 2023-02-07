@@ -1,7 +1,5 @@
 package mocks
 
-import "fmt"
-
 // constructor
 func NewSimulatorMock(mttc float64) *simulatorMock {
 	return &simulatorMock{maxTimeToCatch: mttc}
@@ -17,9 +15,7 @@ type simulatorMock struct {
 }
 
 func (st *simulatorMock) CanCatch(distance float64, speed float64, catchSpeed float64) bool {
-	fmt.Println(distance, speed, catchSpeed)
 	timeToCatch := distance / (speed - catchSpeed)
-	fmt.Println()
 	st.ResultOnCan = timeToCatch > 0 && timeToCatch <= st.maxTimeToCatch
 	return st.ResultOnCan
 }

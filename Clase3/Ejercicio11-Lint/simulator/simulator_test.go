@@ -28,3 +28,13 @@ func TestGetLinearDistance_OK(t *testing.T) {
 	// assert
 	assert.Equal(t, math.Round(result*100)/100, 2.46)
 }
+
+func BenchmarkGetLinearDistance(b *testing.B) {
+	// arrange
+	sm := NewCatchSimulator(100)
+
+	// act
+	for i := 0; i < b.N; i++ {
+		sm.GetLinearDistance([2]float64{1.1, 2.2})
+	}
+}

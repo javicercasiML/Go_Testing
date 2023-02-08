@@ -14,7 +14,11 @@ func MapRoutes(r *gin.Engine) {
 }
 
 func buildProductsRoutes(r *gin.RouterGroup) {
-	repo := products.NewRepository()
+	db := []products.Product{
+		{ID: "mock", SellerID: "1", Description: "generic product", Price: 123.55},
+		{ID: "mock2", SellerID: "2", Description: "generic product2", Price: 1000.1},
+	}
+	repo := products.NewRepository(db)
 	service := products.NewService(repo)
 	handler := products.NewHandler(service)
 

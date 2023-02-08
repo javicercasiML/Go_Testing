@@ -86,8 +86,6 @@ func TestGetTotalByName_Fake(t *testing.T) {
 	})
 }
 
-
-
 // -----------------------------------------------------------------------------------------
 // Test Update: using storage_mockdyn
 func TestUpdateByName_MockDyn(t *testing.T) {
@@ -120,7 +118,7 @@ func TestUpdateByName_MockDyn(t *testing.T) {
 
 		// act
 		i, err := sv.UpdateByName("Pepsi", nil, nil, nil)
-		
+
 		// assert
 		assert.Error(t, err)
 		assert.ErrorIs(t, err, e)
@@ -150,7 +148,7 @@ func TestUpdateByName_MockTestify(t *testing.T) {
 
 		// act
 		i, err := sv.UpdateByName("Pepsi", nil, nil, nil)
-		
+
 		// assert
 		assert.Error(t, err)
 		assert.ErrorIs(t, err, e)

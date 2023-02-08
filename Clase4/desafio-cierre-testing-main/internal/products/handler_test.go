@@ -3,8 +3,7 @@ package products
 import (
 	"bytes"
 	"encoding/json"
-	"errors"
-	"io/ioutil"
+	"io"
 	"testing"
 
 	"net/http"
@@ -87,7 +86,7 @@ func TestGetProducts(t *testing.T) {
 
 		// act
 		server.ServeHTTP(res, req)
-		body, err := ioutil.ReadAll(res.Body)
+		body, err := io.ReadAll(res.Body)
 
 		// assert
 		assert.NoError(t, err)
@@ -99,29 +98,29 @@ func TestGetProducts(t *testing.T) {
 		// arrange
 		req, res := createRequestTest(http.MethodGet, "/api/v1/products?seller_id=0", "")
 
-		errExpected := errors.New(`{"error":"seller ID not exist"}`)
+		errExpected := `{"error":"seller ID not exist"}`
 		// act
 		server.ServeHTTP(res, req)
-		body, err := ioutil.ReadAll(res.Body)
+		body, err := io.ReadAll(res.Body)
 
 		// assert
 		assert.NoError(t, err)
 		assert.Equal(t, 500, res.Code)
-		assert.Equal(t, errExpected.Error(), string(body))
+		assert.Equal(t, errExpected, string(body))
 	})
 
 	t.Run("query param not found", func(t *testing.T) {
 		// arrange
 		req, res := createRequestTest(http.MethodGet, "/api/v1/products", "")
 
-		errExpected := errors.New(`{"error":"seller_id query param is required"}`)
+		errExpected := `{"error":"seller_id query param is required"}`
 		// act
 		server.ServeHTTP(res, req)
-		body, err := ioutil.ReadAll(res.Body)
+		body, err := io.ReadAll(res.Body)
 
 		// assert
 		assert.NoError(t, err)
 		assert.Equal(t, 400, res.Code)
-		assert.Equal(t, errExpected.Error(), string(body))
+		assert.Equal(t, errExpected, string(body))
 	})
 }
